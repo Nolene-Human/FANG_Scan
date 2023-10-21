@@ -1,4 +1,4 @@
-from flask import Flask, render_template, request,redirect
+from flask import Flask, render_template, request,redirect, url_for
 import sqlite3
 
 
@@ -14,12 +14,12 @@ def index():
 @app.route('/form_login',methods=['POST','GET'])
 def login():
     name1=request.form["username"]
+    password=request.form["uniqekey"]
     
-    if name1 in database:
-        return render_template('info_gather.html')
+    if name1 in database and password=='123':
+        return redirect(url_for("intel"))
     else:
         return "Access Denied"
-
 
 @app.route('/Intelligence-Gathering')
 def intel():
