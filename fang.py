@@ -20,11 +20,14 @@ def login():
         return redirect(url_for("intel"))
     else:
         return "Access Denied"
+    
 
-@app.route('/Intelligence-Gathering')
+
+
+@app.route('/Intel_gather')
 def intel():
 
-    return render_template('info_gather.html')
+    return render_template('intel_gather.html')
     
 if __name__=="__main__":
     app.run(host='0.0.0.0')
