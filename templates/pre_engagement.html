@@ -1,0 +1,15 @@
+
+{%extends 'base.html'%}
+    {% block body %}
+    <h1>Welcome to FANG</h1>
+    <h2>Step 1 Pre_Engagment Contract</h2>
+
+    <form action="/pre-engagement" method="post">
+        
+        <label for="name"><b>Enter Name to Sign</br></label>
+        <input type="text" placeholder="Enter Name" name="name" required></br>
+        
+        <input type="submit" value="Accept">
+    </form>
+
+    {% endblock %} 

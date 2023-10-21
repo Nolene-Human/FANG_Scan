@@ -1,0 +1,43 @@
+
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>Scan Network</title>
+            <meta name="viewport" content="width=device-width, initial-scale=1.0">
+            <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/water.css@2/out/water.css">
+            <link rel="stylesheet" href="https://pyscript.net/latest/pyscript.css" />
+            <script defer src="https://pyscript.net/latest/pyscript.js"></script>  
+        </head>
+   
+   
+    <body>                  
+        <h2>Step 2 : Intelligence Gathering </h2>
+        <h3>During this phase you will scan your network for connected devices.
+            Please ensure all devices you like to test is now online.</h3>
+        <button py-click="scan()" class="py-button">Scan Network</button>
+        <p id='scan'></p>
+
+        <input type="submit" value="SaveData">
+
+    <py-config>
+            [splashscreen]
+                enabled = false
+    </py-config>
+
+    <py-script>
+
+        def scan():
+            Element('scan').write("Scan Done")
+        
+    </py-script>
+
+
+
+    </body>
+    </html>
+
+
+
+            
+   
+
