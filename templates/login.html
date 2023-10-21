@@ -9,19 +9,24 @@
 </head>
 <body>
 <!-- Write your comments here -->
-<h1>Welcome to FANG</h1>
+<h1 style="color:rgb(167, 22, 102)">Welcome to FANG</h1>
 <h2>Please validate for the process to start</h2>
 
 <form action="/form_login" method="post">
-    <label for="usern"><b>Enter Email</br></label>
-    <input type="email" placeholder="Enter Email" name="username" required></br>
+    <h4 style="color:rgb(167, 22, 102)">Start by entering your username</h4>
+    <label for="usern"><b>username</b></label>
+    <input name="username" required></br>
 
-    <label for="psw"><b>Enter Unique key</br></label>
-    <input type="password" placeholder="Enter Unique Key" name="uniqekey" required></br>
+    <input type="submit" value="Generate phrase">
+
+    <h4 style="color:rgb(167, 22, 102)">Enter unique phrase</h4>
+    <label for="psw"><b>unique phrase</b></label>
+    <input type="password" name="uniqekey" required></br>
 
     <input type="submit" value="Login">
+
+
 </form>
 
-<h1>{{info}}</h1>
 </body>
 </html>
