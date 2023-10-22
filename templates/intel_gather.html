@@ -2,41 +2,46 @@
 <!DOCTYPE html>
 <html>
     <head>
-        <title>Scan Network</title>
-            <meta name="viewport" content="width=device-width, initial-scale=1.0">
-            <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/water.css@2/out/water.css">
-            <link rel="stylesheet" href="https://pyscript.net/latest/pyscript.css" />
-            <script defer src="https://pyscript.net/latest/pyscript.js"></script>  
-        </head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/water.css@2/out/water.css">
+        <link rel="stylesheet" href="https://pyscript.net/latest/pyscript.css" />
+        <script defer src="https://pyscript.net/latest/pyscript.js"></script>
    
-   
-    <body>                  
-        <h2 style="color:rgb(167, 22, 102)">Step 2 : Intelligence Gathering </h2>
-        <h3>During this phase you will scan your network for connected devices.
-            Please ensure all devices you like to test is now online.</h3>
-            <br><br>
-
-
-        <button py-click="scan()" class="py-button">Scan Network</button>
-        <h4 style="color:rgb(167, 22, 102)" id='scan'></h4>
-        <p id="scan"></p>
-        
-
-    <py-config>
+        <py-config>
             [splashscreen]
                 enabled = false
-    </py-config>
+        </py-config>
 
-    <py-script >
-        def scan():
-            Element("scan").write("List of Devices on your network")
-            
-    </py-script>
+   
+</head>
+<body>
+
+    <h2 style="color:rgb(167, 22, 102)">Step 2 : Intelligence Gathering </h2>
+    <h3>During this phase you will scan your network for connected devices.
+     Please ensure all devices you like to test is now online.</h3>
+     <br><br>
+
+    <button py-click="scan()" class="py-button">Scan Network</button>
+    <h4 style="color:rgb(167, 22, 102)" id="scan"></h4>
 
 
+ <py-script >     
+    def scan():
+       
+        Element("scan").write("List of Devices on your network")
 
-    </body>
-    </html>
+ </py-script>
+
+     <tr>
+        <th>Ip Address</th>
+        <th>MAC Address</th>
+        <th>Manufacturer</th>
+    </tr>
+
+  
+</body>
+</html>
 
 
 

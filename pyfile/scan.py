@@ -1,20 +1,19 @@
+from xml.etree.ElementTree import Element
 import nmap   
 
-def scan_network_devices():
-    scan='no'
-    scan=input("Enter yes")
 
+print("Hallo World")
+
+def scan_network_devices():
     nm = nmap.PortScanner()
-    if scan=='yes':
-            print("List of Devices on your network")
-            nm.scan(hosts='192.168.1.0/24', arguments='-sn')
+    nm.scan(hosts='192.168.1.0/24', arguments='-sn')
                     
-            for host in nm.all_hosts():
-                if 'mac' in nm[host]['addresses']:
-                    mac_address = nm[host]["addresses"]["mac"]
-                    manufacturer = nm[host]["vendor"].get(mac_address, "Unknown")
-                    device=print("IP Address: {}, MAC Address: {}, Manufacturer: {}".format(host, mac_address, manufacturer))
-    return device
+    for host in nm.all_hosts():
+        if 'mac' in nm[host]['addresses']:
+            mac_address = nm[host]["addresses"]["mac"]
+            manufacturer = nm[host]["vendor"].get(mac_address, "Unknown")
+            print("IP Address: {}, MAC Address: {}, Manufacturer: {}".format(host, mac_address, manufacturer))
+    
 
 def scapy_scan():
     import scapy.all as s 

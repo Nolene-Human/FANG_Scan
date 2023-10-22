@@ -1,18 +1,11 @@
 
-<!DOCTYPE html>
-<html>
-<head>
-<title>FANG</title>
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/water.css@2/out/water.css">
-    
-</head>
-<body>
-<!-- Write your comments here -->
+{% extends 'base.html' %}
+
+{% block body %}
 <h1 style="color:rgb(167, 22, 102)">Welcome to FANG</h1>
 <h2>Please validate for the process to start</h2>
 
-<form action="/form_login" method="post">
+<form action="/form_login" method="POST">
     <h4 style="color:rgb(167, 22, 102)">Start by entering your username</h4>
     <label for="usern"><b>username</b></label>
     <input name="username" required></br>
@@ -21,12 +14,10 @@
 
     <h4 style="color:rgb(167, 22, 102)">Enter unique phrase</h4>
     <label for="psw"><b>unique phrase</b></label>
-    <input type="password" name="uniqekey" required></br>
+    <input type="password" uniqekey" required></br>
 
     <input type="submit" value="Login">
-
-
 </form>
 
-</body>
-</html>
+    
+{% endblock %}   
