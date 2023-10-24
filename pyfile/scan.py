@@ -17,33 +17,35 @@ def scan_network_devices():
 
 def scapy_scan():
     import scapy.all as s 
-    Scapy_scan=lit.checkbox('Scapy Scan')
-    save_devices=lit.checkbox("save to database")
+    # Scapy_scan=lit.checkbox('Scapy Scan')
+    # save_devices=lit.checkbox("save to database")
 
     list_devices=[]
 
-    if Scapy_scan:
-        answered_list=s.arping("192.168.1.0/24")
+    #if Scapy_scan:
+    answered_list=s.arping("192.168.1.0/24")
                          
         # iterate through the result and add each host to the dictionary
-        for sent, received in answered_list[0].res:
+    for sent, received in answered_list[0].res:
             ip=received.psrc
             mac=received.hwsrc
             device_name="New"
             devices={"ip":ip,"mac":mac,"name":device_name}
-            list_devices.append(devices)
-            if save_devices:
-                database.child(user['localId']).child('Devices').push(devices)
+            #list_devices.append(devices)
+            # if save_devices:
+            #     database.child(user['localId']).child('Devices').push(devices)
                               
-                with ip_col:
-                    lit.write(ip)
-                with mac_col:
-                    lit.write(mac)
-                with name_col:
-                    lit.write(device_name)
+                #with ip_col:
+            print(ip)
+                # with mac_col:
+                #     lit.write(mac)
+                # with name_col:
+                #     lit.write(device_name)
                          
     #lit.json(list_devices)
 
 
-    print("hi")
-    scan_network_devices()
+#print("hi")
+scan_network_devices()
+#scapy_scan()
+

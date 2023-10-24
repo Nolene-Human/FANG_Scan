@@ -17,12 +17,10 @@ def login():
     if request.method =='POST':
         conn=sqlite3.connect('clients.db')
         c= conn.cursor()
-    
-    
+        
         name1=request.form["username"]
         key=request.form["uniqekey"]
     
-
 
         validate="SELECT email,key FROM clients where email='"+name1+"'and key ='"+key+"'" 
         c.execute(validate)
@@ -38,24 +36,23 @@ def login():
 
 @app.route('/Intel_gather')
 def intel():   
-        
-    if request.method =='POST':
-        return ('You scanned the network')
+    return render_template('intel_gather.html')
 
-
-    else:
-        return render_template('intel_gather.html')
-
-@app.route('/Scan_network')
-def scan_network_devices():
+@app.route('/scan',methods=['POST','GET'])
+def scan():
+    
+    devices=[]
     nm = nmap.PortScanner()
     nm.scan(hosts='192.168.1.0/24', arguments='-sn')
-                    
+                        
     for host in nm.all_hosts():
         if 'mac' in nm[host]['addresses']:
             mac_address = nm[host]["addresses"]["mac"]
             manufacturer = nm[host]["vendor"].get(mac_address, "Unknown")
-            return ("IP Address: {}, MAC Address: {}, Manufacturer: {}".format(host, mac_address, manufacturer))
-    
+            device=(host,mac_address,manufacturer)
+            devices.append(device)
+            #return ("IP Address: {}, MAC Address: {}, Manufacturer: {}".format(host, mac_address, manufacturer))
+    print (devices)
+    return("Scan complete")
 #if __name__=="__main__":
  #   app.run(host='0.0.0.0')
