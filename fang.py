@@ -35,61 +35,16 @@ def login():
             return("You are not authorised to enter the site with credentials provided")
         else:
             return redirect(url_for('intel'))
-    
-        
 
-    # clients=c.fetchall()
-
-    # for aclient in clients:
-    #     print(aclient.email)
-    
-    
-
-    # if name1 in database:
-    #     # SQLite
-
-    #     c.execute("""
-    #     INSERT INTO clients VALUES('client@gmail.com','123')
-    #         """)
-    #     conn.commit()
-
-    #     return redirect(url_for('intel'))
-    # else:
-    #     return "Access Denied"
-
-
-
-# def login():
-       
-#     name1=request.form["username"]
-#     #password=request.form["uniqekey"]
-    
-#     if name1 in database:    
-
-#         # SQLite
-#         conn=sqlite3.connect('clients.db')
-
-#             #create cursor
-#         c= conn.cursor()
-
-        
-#         c.execute("""
-#         INSERT INTO clients VALUES('client@gmail.com','123')
-#             """)
-            
-#         #call from database
-#         c.execute("SELECT*FROM clients WHERE email='client@gmail.com'")
-#         print(c.fetchall())
-            
-
-    
-
-    
 @app.route('/Intel_gather')
-def intel():
-    return render_template('intel_gather.html')
+def intel():   
+        
+    if request.method =='POST':
+        return ('You scanned the network')
 
 
+    else:
+        return render_template('intel_gather.html')
 
 @app.route('/Scan_network')
 def scan_network_devices():
