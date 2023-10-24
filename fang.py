@@ -3,30 +3,92 @@ import sqlite3
 
 import nmap
 
-app = Flask(__name__)
-
-database={'nina@gmail.com':'123'}    
+app = Flask(__name__)   
+database={'client@gmail.com':'123'}
 
 @app.route('/')
 def index():
     return render_template('index.html')
 
 # if user exist direct to info_gather else deny access
-@app.route('/form_login',methods=['POST'])
+@app.route('/form_login',methods=['POST','GET'])
 def login():
-    name1=request.form["username"]
-    password=request.form["uniqekey"]
+
+    if request.method =='POST':
+        conn=sqlite3.connect('clients.db')
+        c= conn.cursor()
     
-    if name1 in database and password=='123':
-        return redirect(url_for("intel"))
-    else:
-        return ("Access Denied")
+    
+        name1=request.form["username"]
+        key=request.form["uniqekey"]
+    
+
+
+        validate="SELECT email,key FROM clients where email='"+name1+"'and key ='"+key+"'" 
+        c.execute(validate)
+
+        result=c.fetchall()
+        print(result)
+
+    #validate 
+        if len(result)==0:
+            return("You are not authorised to enter the site with credentials provided")
+        else:
+            return redirect(url_for('intel'))
+    
+        
+
+    # clients=c.fetchall()
+
+    # for aclient in clients:
+    #     print(aclient.email)
+    
+    
+
+    # if name1 in database:
+    #     # SQLite
+
+    #     c.execute("""
+    #     INSERT INTO clients VALUES('client@gmail.com','123')
+    #         """)
+    #     conn.commit()
+
+    #     return redirect(url_for('intel'))
+    # else:
+    #     return "Access Denied"
+
+
+
+# def login():
+       
+#     name1=request.form["username"]
+#     #password=request.form["uniqekey"]
+    
+#     if name1 in database:    
+
+#         # SQLite
+#         conn=sqlite3.connect('clients.db')
+
+#             #create cursor
+#         c= conn.cursor()
+
+        
+#         c.execute("""
+#         INSERT INTO clients VALUES('client@gmail.com','123')
+#             """)
+            
+#         #call from database
+#         c.execute("SELECT*FROM clients WHERE email='client@gmail.com'")
+#         print(c.fetchall())
+            
+
     
 
     
 @app.route('/Intel_gather')
 def intel():
     return render_template('intel_gather.html')
+
 
 
 @app.route('/Scan_network')
