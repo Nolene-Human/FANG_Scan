@@ -1,19 +1,19 @@
 import sqlite3
 
 #conn = sqlite3.connect('client.db')
-conn2=sqlite3.connect('clients.db')
+conn=sqlite3.connect('clients.db')
 
 #create cursor
-c= conn2.cursor()
+c= conn.cursor()
 
 
 #create a database
 c.execute("""
-   CREATE TABLE clients (
+   CREATE TABLE IF NOT EXISTS clients (
         email text,
-          key text,
-         otp interger)
+          key text)
 """)
+
 
 
 # #insert to database
@@ -49,13 +49,13 @@ c.execute('DELETE from clients WHERE email="NAME2"')
 
 
 #commit our command
-conn2.commit()
+# conn2.commit()
 
-c.execute("SELECT*FROM clients")
-print(c.fetchall())
+# c.execute("SELECT*FROM clients")
+# print(c.fetchall())
 
 
-c.execute('SELECT * FROM clients ORDER BY "name"')
+# c.execute('SELECT * FROM clients ORDER BY "name"')
 
-#close connection
-conn2.close()
+# #close connection
+# conn2.close()

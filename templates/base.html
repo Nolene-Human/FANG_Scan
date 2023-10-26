@@ -3,14 +3,24 @@
 <html>
     <head>
         <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/water.css@2/out/water.css">
         <link rel="stylesheet" href="https://pyscript.net/latest/pyscript.css" />
         <script defer src="https://pyscript.net/latest/pyscript.js"></script>
-        
     {% block title %}{% endblock %}
-    </head>
+    
+</head>
 <body>
-    <py-config src="./pyscript.toml"></py-config>
+    <!--<py-config src="./pyscript.toml"></py-config>-->
+    
+    <py-config>
+            [splashscreen]
+                enabled = false
+    </py-config>
+    
+    
+    
+    
     {% block body %}{% endblock %}    
 </body>
 </html>
