@@ -1,4 +1,3 @@
-
 <!DOCTYPE html>
 <html>
     <head>
@@ -7,6 +6,7 @@
         <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/water.css@2/out/water.css">
         <link rel="stylesheet" href="https://pyscript.net/latest/pyscript.css" />
         <script defer src="https://pyscript.net/latest/pyscript.js"></script>
+        <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
    
         <py-config>
             [splashscreen]
@@ -21,27 +21,45 @@
     <h3>During this phase you will scan your network for connected devices.
      Please ensure all devices you like to test is now online.</h3>
      <br><br>
+
+     <!--Scan Button -->
      <form action="/scan" method="POST">
         <input type="submit" value="SCAN">
 
      </form>
 
-    <!--<button py-click="scan()" class="py-button">Scan Network</button>
-    <h4 style="color:rgb(167, 22, 102)" id="scan"></h4>
 
+     <br><br>
 
- <py-script >     
-    def scan():
-       
-        Element("scan").write("List of Devices on your network")
+     <!--Display data after scan-->
+    <div class="table-responsive">          
+        <table class="table">
+            <thead>
+                <tr>
+                  <th>IP</th>
+                  <th>MacAddress</th>
+                  <th>Manufacturer</th>
+                  <th>Remove from Audit</th>
+                </tr>
+              </thead>
+            
+            <!---Running through the list of devices saved and printing in column-->
+            {% for row in todos %}
+            <tr>                
+            {%for cell in row%}
+                <td>
+                    {{cell}} 
+                </td>
 
- </py-script>-->
-
-     <tr>
-        <th>Ip Address</th>
-        <th>MAC Address</th>
-        <th>Manufacturer</th>
-    </tr>
+            {%endfor%}
+            <td>
+                <a href="/delete{{cell.id}}" class="btn btn-danger btn-xs">Delete</a>
+            </td>
+            </tr> 
+            {%endfor%}
+        </table>
+    </div>
+    
 
   
 </body>

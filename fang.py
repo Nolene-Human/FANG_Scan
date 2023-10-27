@@ -6,6 +6,9 @@ import nmap
 app = Flask(__name__)   
 database={'client@gmail.com':'123'}
 
+
+todos=[]
+
 @app.route('/')
 def index():
     return render_template('index.html')
@@ -38,10 +41,15 @@ def login():
 def intel():   
     return render_template('intel_gather.html')
 
+
+
+#Called when 'Scan' button is pressed on intel_gather.html
 @app.route('/scan',methods=['POST','GET'])
+
 def scan():
     
-    devices=[]
+    todos.clear()
+    
     nm = nmap.PortScanner()
     nm.scan(hosts='192.168.1.0/24', arguments='-sn')
                         
@@ -49,10 +57,18 @@ def scan():
         if 'mac' in nm[host]['addresses']:
             mac_address = nm[host]["addresses"]["mac"]
             manufacturer = nm[host]["vendor"].get(mac_address, "Unknown")
-            device=(host,mac_address,manufacturer)
-            devices.append(device)
-            #return ("IP Address: {}, MAC Address: {}, Manufacturer: {}".format(host, mac_address, manufacturer))
-    print (devices)
-    return("Scan complete")
+            #device={"IP":host,"MAC":mac_address,"MAN":manufacturer}
+            device=(host,mac_address,manufacturer,)
+            todos.append(device)
+    
+    
+    return render_template("intel_gather.html", todos=todos)
+
+@app.route('/delete/<id>',methods=['POST','GET'])
+
+def delete(id):
+    
+    return("This item has been removed")
+
 #if __name__=="__main__":
  #   app.run(host='0.0.0.0')
