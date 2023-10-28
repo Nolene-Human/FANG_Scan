@@ -31,34 +31,6 @@
 
      <br><br>
 
-     <!--Display data after scan-->
-    <div class="table-responsive">          
-        <table class="table">
-            <thead>
-                <tr>
-                  <th>IP</th>
-                  <th>MacAddress</th>
-                  <th>Manufacturer</th>
-                  <th>Remove from Audit</th>
-                </tr>
-              </thead>
-            
-            <!---Running through the list of devices saved and printing in column-->
-            {% for row in todos %}
-            <tr>                
-            {%for cell in row%}
-                <td>
-                    {{cell}} 
-                </td>
-
-            {%endfor%}
-            <td>
-                <a href="/delete{{cell.id}}" class="btn btn-danger btn-xs">Delete</a>
-            </td>
-            </tr> 
-            {%endfor%}
-        </table>
-    </div>
     
 
   
