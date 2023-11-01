@@ -6,14 +6,19 @@ conn=sqlite3.connect('clients.db')
 #create cursor
 c= conn.cursor()
 
-
+def create_db():
 #create a database
-c.execute("""
-   CREATE TABLE IF NOT EXISTS clients (
-        email text,
-          key text)
-""")
+  c.execute("""
+    CREATE TABLE IF NOT EXISTS clients (
+          email text,
+            username text,
+            key txt,
+            otp int,
+            pass txt)
+  """)
 
+
+create_db()
 
 
 # #insert to database
@@ -45,7 +50,7 @@ c.execute("""
 # print(c.fetchall())
 
 #delete record
-c.execute('DELETE from clients WHERE email="NAME2"')
+#c.execute('DELETE from clients WHERE email="NAME2"')
 
 
 #commit our command

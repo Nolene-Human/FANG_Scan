@@ -1,0 +1,27 @@
+{% extends 'base.html' %}
+
+{% block body %}
+<h1 style="color:rgb(167, 22, 102)">Welcome to FANG </h1>
+<h2>This is your first time using our services and are required to go through the verification process </h2>
+
+<form action="/validate" method="POST">
+    <h4 style="color:rgb(167, 22, 102)">Enter strong password</h4>
+    <label for="usern" hint="Atleast 8characters"><b></b></label>
+    <input name="username" required></br>
+    
+
+    <h4> Scan qr code into your multifactor authentication app </h4>
+    <img src="{{url_for('static',filename='codes/QR.png')}}"width=200>
+
+    <h4 style="color:rgb(167, 22, 102)">Enter One Time Passcode</h4>
+    <label for="psw"><b></b></label>
+    <input type="password" name ="uniqekey" required></br>
+
+
+    <br><br>
+    <input type="submit" value="Validate"> 
+
+</form>
+
+    
+{% endblock %}   

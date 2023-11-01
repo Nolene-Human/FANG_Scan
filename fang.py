@@ -1,44 +1,53 @@
 from flask import Flask, render_template, request,redirect, url_for
 import sqlite3
+from email.mime.application import MIMEApplication
 
 import nmap
 
+import pyfile.otp
+
+
 app = Flask(__name__)   
-database={'client@gmail.com':'123'}
-
-
-#todos=[]
 
 @app.route('/')
 def index():
-    return render_template('index.html')
+    return render_template('register.html')
 
 # if user exist direct to info_gather else deny access
-@app.route('/form_login',methods=['POST','GET'])
+@app.route('/registration',methods=['POST','GET'])
 def login():
 
     if request.method =='POST':
-        conn=sqlite3.connect('clients.db')
+        conn=sqlite3.connect('C:/Users/Nina/Desktop/FANG_Scan/database/clients.db')
         c= conn.cursor()
         
         name1=request.form["username"]
         key=request.form["uniqekey"]
     
 
-        validate="SELECT email,key FROM clients where email='"+name1+"'and key ='"+key+"'" 
+        validate="SELECT email,key FROM clients where username='"+name1+"'and key ='"+key+"'" 
         c.execute(validate)
 
         result=c.fetchall()
-        print(result)
+        
 
     #validate 
         if len(result)==0:
             return("You are not authorised to enter the site with credentials provided")
         else:
-            return redirect(url_for('intel'))
+            return redirect(url_for('validation'))
+        
+@app.route('/validate')
+def validation():
+    key=pyfile.otp.key()
+    otp=pyfile.otp.generate_qr(key)
+    print (otp)
+    return render_template('verify.html')
 
 @app.route('/Intel_gather')
-def intel():   
+def intel():
+    
+
     return render_template('intel_gather.html')
 
 
@@ -48,7 +57,7 @@ def intel():
 def scan():    
     #todos.clear()
     
-    conn_devices=sqlite3.connect('devices.db')
+    conn_devices=sqlite3.connect('C:/Users/Nina/Desktop/FANG_Scan/database/clients.db')
 
     #create cursor
     c_d= conn_devices.cursor()
