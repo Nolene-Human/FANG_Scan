@@ -2,17 +2,18 @@
 
 {% block body %}
 <h1 style="color:rgb(167, 22, 102)">Welcome to FANG </h1>
-<h2>This is your first time using our services and are required to go through the verification process </h2>
+<h2>Welcome to Fang.</h2>
+<h3>You have agreed to our terms and conditions and received instructions to login to our services</h3>
 
 <form action="/registration" method="POST">
-    <h4 style="color:rgb(167, 22, 102)">Start by entering your username</h4>
+    <h4 style="color:rgb(167, 22, 102)">Enter your secret code name</h4>
     <label for="usern"><b>username</b></label>
     <input name="username" required></br>
     
 
-    <h4 style="color:rgb(167, 22, 102)">Enter unique phrase</h4>
+    <h4 style="color:rgb(167, 22, 102)">Enter the phrase</h4>
     <label for="psw"><b>unique phrase</b></label>
-    <input type="password" name ="uniqekey" required></br>
+    <input type="password" name ="uniqekey" required><br><br>
 
     <input type="submit" value="Validate"> 
 
