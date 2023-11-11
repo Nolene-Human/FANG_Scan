@@ -1,13 +1,29 @@
-from flask import Flask, render_template, request,redirect, url_for
+
+from flask import Flask, render_template, request,redirect, url_for, flash
+
+# WTF manage form entry validations
+from flask_wtf import FlaskForm
+from wtforms import StringField,PasswordField, SubmitField
+from wtforms.validators import DataRequired, EqualTo, Length, Regexp
+
+
+
+#Database
 import sqlite3
-from email.mime.application import MIMEApplication
 
+
+#from email.mime.application import MIMEApplication
+
+#Security features 
 import nmap
-
 import pyfile.otp
+import pyfile.password_check
 
 
-app = Flask(__name__)   
+app = Flask(__name__)  
+
+#key make it a environment variable
+app.config['SECRET_KEY'] = '18b88266e62d2c2b21666239e31215d5'
 
 @app.route('/')
 def index():
@@ -18,7 +34,7 @@ def index():
 def login():
 
     if request.method =='POST':
-        conn=sqlite3.connect('C:/Users/Nina/Desktop/FANG_Scan/database/clients.db')
+        conn=sqlite3.connect('database/clients.db')
         c= conn.cursor()
         
         name1=request.form["username"]
@@ -35,18 +51,89 @@ def login():
         if len(result)==0:
             return("You are not authorised to enter the site with credentials provided")
         else:
-            return redirect(url_for('validation'))
+            return render_template('verify.html')
         
-@app.route('/validate')
+@app.route('/validate',methods=['POST','GET'])
 def validation():
+    
+    if request.method =='POST':
+        password=request.form["password"]
+        conf_password=request.form["conf_password"]
+        
+        SpecialSym =['$', '@', '#', '%','!']
+        
+        if len(password) < 6:
+            msg='Length should be at least 6 characters'
+            return render_template('verify.html',msg=msg)
+    
+        if not any(char.isdigit() for char in password):
+            msg=('Password should have at least one numeral value')
+            return render_template('verify.html',msg=msg)            
+        
+        if not any(char.isupper() for char in password):
+            msg=('Password should have at least one uppercase letter')
+            return render_template('verify.html',msg=msg)
+            
+        if not any(char.islower() for char in password):
+            msg=('Password should have at least one lowercase letter')
+            return render_template('verify.html',msg=msg)
+        
+        if not any(char in SpecialSym for char in password):
+            msg=("Password should have at least one of the symbols '$', '@', '#', '%', '!' ")
+            return render_template('verify.html',msg=msg)
+        
+        if password!=conf_password:
+            msg= ("Passwords do not match")
+            return render_template('verify.html',msg=msg)
+                
+        else:
+            msg=("Password updated")
+            return render_template('verify.html',msg=msg)
+
+@app.route('/otp')
+def otp():
+    
     key=pyfile.otp.key()
     otp=pyfile.otp.generate_qr(key)
     print (otp)
+    
     return render_template('verify.html')
+    
+
+
+
+    # class passwordform(FlaskForm):
+
+
+    #     password=PasswordField('Password',
+    #                         validators=[DataRequired(),
+    #                             Length(min=8, message='Password has to be at least 8 characters'),
+    #                             Regexp(regex="^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[!$%^&*])[A-Za-z\d!$%^&*]{8,}$",
+    #                             message="Your password did not meet the minimum requirements of a lower/upper and number")])
+        
+    #     password_confirm=PasswordField('Confirm Password', validators=[DataRequired(), EqualTo('password')])
+    #     pass_submit=SubmitField('Save Password')
+
+
+#Validates the password
+# @app.route('/password')
+# def password():  
+#     form=passwordform()
+#     return render_template('verify.html', title='Password', form=form)
+    
+#     #validate form
+#     # if form.validate_on_submit():
+#     #     password1=form.password.data
+#     #     form.password.data=""
+#     #     #msg=pyfile.password_check.password_check(password1)
+        
+    
+    
+
+
 
 @app.route('/Intel_gather')
-def intel():
-    
+def intel(): 
 
     return render_template('intel_gather.html')
 
@@ -57,7 +144,7 @@ def intel():
 def scan():    
     #todos.clear()
     
-    conn_devices=sqlite3.connect('C:/Users/Nina/Desktop/FANG_Scan/database/clients.db')
+    conn_devices=sqlite3.connect('database/clients.db')
 
     #create cursor
     c_d= conn_devices.cursor()
