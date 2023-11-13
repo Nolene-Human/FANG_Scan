@@ -27,7 +27,7 @@ app.config['SECRET_KEY'] = '18b88266e62d2c2b21666239e31215d5'
 
 @app.route('/')
 def index():
-    return render_template('home.html')
+    return render_template('landing.html')
 
 # if user exist direct to info_gather else deny access
 @app.route('/registration',methods=['POST','GET'])
