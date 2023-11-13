@@ -27,7 +27,7 @@ app.config['SECRET_KEY'] = '18b88266e62d2c2b21666239e31215d5'
 
 @app.route('/')
 def index():
-    return render_template('register.html')
+    return render_template('home.html')
 
 # if user exist direct to info_gather else deny access
 @app.route('/registration',methods=['POST','GET'])
@@ -88,6 +88,13 @@ def validation():
                 
         else:
             msg=("Password updated")
+            #update database
+            conn=sqlite3.connect('database/clients.db')
+            c= conn.cursor()
+            pss="UPDATE clients SET pass='"+password+"'where username='"+name1+"'"
+            c.execute(pss)
+            conn.commit()
+
             return render_template('verify.html',msg=msg)
 
 @app.route('/otp')
@@ -96,7 +103,7 @@ def otp():
     key=pyfile.otp.key()
     otp=pyfile.otp.generate_qr(key)
     print (otp)
-    
+
     return render_template('verify.html')
     
 
