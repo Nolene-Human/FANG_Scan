@@ -1,19 +1,36 @@
 {% extends 'base.html' %}
 
+
 {% block body %}
 <h1 style="color:rgb(167, 22, 102)">Welcome to FANG </h1>
 <h2>This is your first time using our services and are required to go through the verification process </h2>
 
+<br>
+
+<h2 style= "color:rgb(167, 22, 102)"> Enter your unique password </h2>
+<h4 >Your password must be at least 8 characters, upper and lowercase and have at least one special character '$', '@', '#', '%', '!' </h4>
 <form action="/validate" method="POST">
-    <h4 style="color:rgb(167, 22, 102)">Enter strong password</h4>
-    <label for="usern" hint="Atleast 8characters"><b></b></label>
-    <input name="username" required></br>
+
+    <label for="usern"><b>password</b></label>
+    <input type="password" name="password" required></br>
     
+    <label for="psw"><b>confirm password</b></label>
+    <input type="password" name ="conf_password" required><br><br>
 
-    <h4> Scan qr code into your multifactor authentication app </h4>
-    <img src="{{url_for('static',filename='codes/QR.png')}}"width=200>
+    <input type="submit" value="Save"> 
+</form>
+<br>
+<strong style="color:rgb(212, 17, 17)">{{msg}}</strong>
+  
 
-    <h4 style="color:rgb(167, 22, 102)">Enter One Time Passcode</h4>
+</br></br>
+<form action="/otp" method="POST"
+
+    <h2 style= "color:rgb(167, 22, 102)"> Scan the QR code </h2>
+    <p>Use an authenticator app</p>
+    <img src="{{url_for('static',filename='codes/4qr.png')}}"width=200>
+
+    <h4 style="color:rgb(167, 22, 102)">Verify the code from the app</h4>
     <label for="psw"><b></b></label>
     <input type="password" name ="uniqekey" required></br>
 
