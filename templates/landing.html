@@ -1,10 +1,43 @@
+{% extends 'base.html' %}
+
 {% block body %}
 <br>  <br> 
 <div style="text-align:center">
     <h1 style="color:rgb(167, 22, 102)">Welcome to FANG</h1>
-    <h4>Before you can use this tool, you need to complete the pre-engagement phase of our penetration testing service.</h4><br>
+    <h4>Before you can use this tool, you need to complete the pre-engagement phase of our penetration testing service.</h4>
     <p> This phase involves defining the scope, objectives, and rules of engagement for the test, as well as signing the contract and the non-disclosure agreement. 
         If you have not gone through this process, please contact us to start the engagement</p>
     
     <a href="https://fang.onrender.com/">Contact Us</a>
+
+    <hr style="color:rgb(167, 22, 102);width:100%;text-align:left;margin-left:0">
+</div>
+<br>
+
+        <h3>LOGIN</h3>
+
+    <form action="/form_login" method="POST">
+        <h4 style="color:rgb(167, 22, 102)">Start by entering your username</h4>
+       
+        <input name="username" required></br>
+         
+        <h4 style="color:rgb(167, 22, 102)">Password</h4>
+        
+        <input type="password" name ="password" required></br>
+
+        <h4 style="color:rgb(167, 22, 102)">Verification Code</h4>
+        
+        <input type="password" name ="otp" required></br>
+        <br>
+        <input type="submit" value="Login">
+    </form>
+    <br>
+
+    <hr style="color:rgb(167, 22, 102);width:100%;text-align:left;margin-left:0">
+
+    <h4 style="color:rgb(167, 22, 102)">First time login into your account</h4> 
+    <br>
+    <input type="submit" value="Validate">
+
+
 {% endblock %}

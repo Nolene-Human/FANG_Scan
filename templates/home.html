@@ -6,9 +6,37 @@
 
     <h4>Welcome Back</h4>
 
+    <form action="/form_login" method="POST">
+        <h4 style="color:rgb(167, 22, 102)">Start by entering your username</h4>
+        <br>
+        <input name="username" required></br>
+    
+        <br>
+         
+        <h4 style="color:rgb(167, 22, 102)">Password</h4>
+        <br>
+        <input type="password" name ="password" required></br>
+
+    </form>
+
+
         <input type="submit" value="Login">
         <br>
         <h4>First time login into account</h4> 
+
+        <form action="/registration" method="POST">
+            <h4 style="color:rgb(167, 22, 102)">Enter your secret code name</h4>
+            <label for="usern"><b>username</b></label>
+            <input name="username" required></br>
+            
+        
+            <h4 style="color:rgb(167, 22, 102)">Enter the phrase</h4>
+            <label for="psw"><b>unique phrase</b></label>
+            <input type="password" name ="uniqekey" required><br><br>
+        
+            <input type="submit" value="Validate"> 
+        
+        </form>
         
         <input type="submit" value="Validate">
         
