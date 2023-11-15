@@ -30,28 +30,29 @@ def index():
     return render_template('landing.html')
 
 # if user exist direct to info_gather else deny access
-@app.route('/registration',methods=['POST','GET'])
+@app.route('/form_login',methods=['POST','GET'])
 def login():
 
     if request.method =='POST':
         conn=sqlite3.connect('database/clients.db')
         c= conn.cursor()
         
-        name1=request.form["username"]
-        key=request.form["uniqekey"]
+        name=request.form["username"]
+        password=request.form["password"]
+        otp=request.form["otp"]
     
 
-        validate="SELECT email,key FROM clients where username='"+name1+"'and key ='"+key+"'" 
+        validate="SELECT username,pass,otp FROM clients where username='"+name+"'and pass ='"+password+"'and otp ='"+otp+"'" 
         c.execute(validate)
 
         result=c.fetchall()
-        
+
 
     #validate 
         if len(result)==0:
             return("You are not authorised to enter the site with credentials provided")
         else:
-            return render_template('verify.html')
+            return render_template('intel_gather.html')
         
 @app.route('/validate',methods=['POST','GET'])
 def validation():
@@ -91,7 +92,7 @@ def validation():
             #update database
             conn=sqlite3.connect('database/clients.db')
             c= conn.cursor()
-            pss="UPDATE clients SET pass='"+password+"'where username='"+name1+"'"
+            pss="UPDATE clients SET pass='"+password+"'where username='"+name+"'"
             c.execute(pss)
             conn.commit()
 
