@@ -1,24 +1,37 @@
 import sqlite3
+from  sqlite3 import Error 
 
-#conn = sqlite3.connect('client.db')
-conn=sqlite3.connect('clients.db')
+# #conn = sqlite3.connect('client.db')
+# conn=sqlite3.connect('clients.db')
 
-#create cursor
-c= conn.cursor()
+def create_connection(path):
+  connection=None
+  try:
+    connection=sqlite3.connect('clients.db')
+    print("connection successfull")
+  except Error as e:
+    print(e)
 
-def create_db():
-#create a database
-  c.execute("""
-    CREATE TABLE IF NOT EXISTS clients (
-          email text,
-            username text,
-            key txt,
-            otp int,
-            pass txt)
-  """)
+  return connection
 
 
-create_db()
+
+# #create cursor
+# c= conn.cursor()
+
+# def create_db():
+# #create a database
+#   c.execute("""
+#     CREATE TABLE IF NOT EXISTS clients (
+#           email text,
+#             username text,
+#             key txt,
+#             otp int,
+#             pass txt)
+#   """)
+
+
+# create_db()
 
 
 # #insert to database

@@ -1,0 +1,25 @@
+{% extends 'base.html' %}
+
+
+{% block body %}
+
+
+<form action="/otp" method="POST">
+    </br></br>
+    <h2 style= "color:rgb(167, 22, 102)"> Scan the QR code using your authenticator app </h2> <br><br>
+    
+    <img src="{{savecode}}"width=200>
+
+    <h4 style="color:rgb(167, 22, 102)">Verify the code from the app</h4>
+   
+    <input name ="otp_code" required></br>
+
+
+    <br><br>
+    <input type="submit" value="Validate"> 
+
+</form>
+
+<strong style="color:rgb(212, 17, 17)">{{msg}}</strong>
+
+{% endblock %}   
