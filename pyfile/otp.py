@@ -17,18 +17,7 @@ def generate_qr(key):
     code= rr+'qr'+".png"
     savecode='static/codes/'+code
     qrcode.make(uri).save(savecode)
-    return code
-
-def generate_code(key):
-   
-    totp=pyotp.totp.TOTP(key)
-    uri=pyotp.totp.TOTP(key).provisioning_uri(name="FANG",issuer_name="FANG App")
-    r=random.randrange(2, 20)
-    rr=str(r)
-    code= rr+'qr'+".png"
-    savecode='static/codes/'+code
-    qrcode.make(uri).save(savecode)
-    print(totp)
+    return totp
 
 #based on the encryption key value a One time passcode is generated. This OTP generated when code is called match OTP on users application. 
 def generatepin(key):

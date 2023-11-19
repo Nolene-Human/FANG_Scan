@@ -16,17 +16,17 @@ app = Flask(__name__)
 
 
 #Security headers
-# @app.after_request
-# def security_headers(resp):
-#     # preventing man-in-the-middle (MITM) attack
-#     resp.headers['Strict-Transport-Security'] = 'max-age=31536000'
+@app.after_request
+def security_headers(resp):
+    # preventing man-in-the-middle (MITM) attack
+    resp.headers['Strict-Transport-Security'] = 'max-age=31536000'
 
-#     resp.headers['Content-Security-Policy'] = 'default-src "self"'
-#     # prevent cross-site scripting (XSS) attack.
-#     resp.headers['X-Content-Type-Options'] = 'nosniff'
-#     # prevents external sites from embedding your site in an iframe (clickjacking)
-#     resp.headers['X-Frame-Options'] = 'SAMEORIGIN'
-    #return resp
+    resp.headers['Content-Security-Policy'] = 'default-src "self" https://cdn.jsdelivr.net/npm/water.css@2/out/water.css'
+    # prevent cross-site scripting (XSS) attack.
+    resp.headers['X-Content-Type-Options'] = 'nosniff'
+    # prevents external sites from embedding your site in an iframe (clickjacking)
+    resp.headers['X-Frame-Options'] = 'SAMEORIGIN'
+    return resp
 
 
 #connection to database
@@ -50,7 +50,7 @@ def login():
         password=request.form["password"]
         otp=request.form["otp"]
     
-        step1="SELECT username,pass,otp FROM clients where username='"+name+"'and pass ='"+password+"'and otp ='"+otp+"'"
+        step1="SELECT username,pass,otp FROM clients where username='"+name+"'and key ='"+password+"'and otp ='"+otp+"'"
         c.execute(step1)
         result=c.fetchall()
 
@@ -66,7 +66,10 @@ def login():
 
 @app.route('/first',methods=['POST','GET'])
 def verify():
-    return render_template('verify.html')
+    key=pyfile.otp.key()
+    pyfile.otp.generate_qr(key)
+
+    return render_template('otp.html')
 
 @app.route('/validate',methods=['POST','GET'])
 def validation():
@@ -133,6 +136,12 @@ def validation():
 @app.route('/otp',methods=['POST','GET'])
 def otp():
 
+    key=pyfile.otp.key()
+    pin=pyfile.otp.generatepin(key)
+
+    print(key)
+    #savecode='static/codes/'+qr
+
     if request.method =='POST':
         conn=sqlite3.connect('clients.db')
         c=conn.cursor()
@@ -144,9 +153,9 @@ def otp():
         print(key)
 
 
-    # pyfile.otp.generate_code(key)
-    # unq_code=pyfile.otp.generatepin(key)
-    # print(unq_code)
+    pyfile.otp.generate_code(key)
+    unq_code=pyfile.otp.generatepin(key)
+    print(unq_code)
  
     # savecode='static/codes/'+qr
        
