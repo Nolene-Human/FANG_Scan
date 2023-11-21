@@ -2,14 +2,18 @@
 from flask import Flask, render_template, request
 
 #Security features 
-import nmap
 import pyfile.otp
 import pyfile.password_check
-#from flask_wtf.csrf import CSRFProtect
+import pyfile.randomkey
+
+from flask_wtf.csrf import CSRFProtect
 
 
 app = Flask(__name__)  
-#csrf=CSRFProtect(app)
+
+key=pyfile.randomkey.generate_password()
+app.secret_key=key
+csrf=CSRFProtect(app)
 
 #Security headers
 @app.after_request
@@ -29,6 +33,7 @@ def security_headers(resp):
 import sqlite3
 db_path='database\clients.db'
 
+attempt=3
 
 @app.route('/')
 def index():
@@ -37,6 +42,7 @@ def index():
 # if user exist direct to info_gather else deny access
 @app.route('/form_login',methods=['POST','GET'])
 def login():
+    #while attempt <3:
         conn=sqlite3.connect('clients.db')
         c=conn.cursor()
         name=request.form["username"]
@@ -57,10 +63,12 @@ def login():
        
     #validate 
         if len(result)==0:
-            return("You are not authorised to enter the site with credentials provided")
+            #attempt=-1
+            #error=alert("You did not provide the correct credentials.")
+            return render_template('landing.html',error=error)
         else:
             conn.close()
-            return render_template('landing.html')
+            return ("You are logged in")
             
 
 

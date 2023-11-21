@@ -17,8 +17,9 @@
         <h3>LOGIN</h3>
 
     <form action="/form_login" method="POST">
+        <input type="hidden" name="csrf_token" value ="{{csrf_token()}}"/>
         <h4 style="color:rgb(167, 22, 102)">Start by entering your username</h4>
-       
+        
         <input name="username" required></br>
          
         <h4 style="color:rgb(167, 22, 102)">Enter Unique Key</h4>
@@ -34,13 +35,5 @@
     <br>
 
     <hr style="color:rgb(167, 22, 102);width:100%;text-align:left;margin-left:0">
-
-
-    <form action="/first" method="POST">
-        <h4 style="color:rgb(167, 22, 102)">First time login into your account</h4> 
-        <br><br>
-        <input type="submit" value="Validate">
-    </from>
-
 
 {% endblock %}

@@ -7,7 +7,7 @@
 <form action="/otp" method="POST">
     </br></br>
     <h2 style= "color:rgb(167, 22, 102)"> Scan the QR code using your authenticator app </h2> <br><br>
-    
+    <input type="hidden" name="csrf_token" value ={{csrf_token()}}/>
     <img src="{{savecode}}"width=200>
 
     <label for="usern"><b>secret code name</b></label>
