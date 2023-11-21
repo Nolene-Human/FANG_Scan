@@ -1,19 +1,15 @@
 
-from flask import Flask, render_template
-
-# WTF manage form entry validations
-
-
-#from email.mime.application import MIMEApplication
+from flask import Flask, render_template, request
 
 #Security features 
 import nmap
 import pyfile.otp
 import pyfile.password_check
+#from flask_wtf.csrf import CSRFProtect
 
 
 app = Flask(__name__)  
-
+#csrf=CSRFProtect(app)
 
 #Security headers
 @app.after_request
@@ -31,10 +27,7 @@ def security_headers(resp):
 
 #connection to database
 import sqlite3
-import database.database
-
 db_path='database\clients.db'
-
 
 
 @app.route('/')
@@ -49,12 +42,19 @@ def login():
         name=request.form["username"]
         password=request.form["password"]
         otp=request.form["otp"]
-    
-        step1="SELECT username,pass,otp FROM clients where username='"+name+"'and key ='"+password+"'and otp ='"+otp+"'"
-        c.execute(step1)
+
+        # Reduce risk for SQL injection by sanatise user input for commented sql injection
+        newname = ""
+        for n in name:
+            if n == "'" or n =="--" or n =="=":
+                n = ""
+            else:
+                newname=newname+n
+
+        sql = "SELECT username, pass, otp_pin FROM clients WHERE username = ? AND key = ? AND otp_pin = ?"
+        c.execute(sql,(newname,password,otp))
         result=c.fetchall()
-
-
+       
     #validate 
         if len(result)==0:
             return("You are not authorised to enter the site with credentials provided")
@@ -70,3 +70,6 @@ def verify():
     pyfile.otp.generate_qr(key)
 
     return render_template('otp.html')
+
+if __name__ == "__main__":
+  app.run()
