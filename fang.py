@@ -141,6 +141,9 @@ def delete():
             # Connect to the database and DELETE a specific record based on rowid
             with sqlite3.connect('devices.db') as con:
                     cur = con.cursor()
+                    deldev="DELETE FROM devices WHERE rowid = ?"
+                    cur.execute(deldev,(rowid))
+               
                     cur.execute("DELETE FROM devices WHERE rowid="+rowid)
                     con.commit()
         except:
