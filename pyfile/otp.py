@@ -9,9 +9,9 @@ def key():
 
 #calls the key of the user (from database) and generates a QR code for the user to scan
 def generate_qr(key):
-   
     totp=pyotp.totp.TOTP(key)
     uri=pyotp.totp.TOTP(key).provisioning_uri(name="FANG",issuer_name="FANG App")
+    #saving QR
     r=random.randrange(2, 20)
     rr=str(r)
     code= rr+'qr'+".png"
@@ -24,3 +24,12 @@ def generatepin(key):
     totp=pyotp.TOTP(key)
     mfacode=(totp.now())
     return mfacode
+
+def printQR(key):
+    uri=pyotp.totp.TOTP(key).provisioning_uri(name="FANG",issuer_name="FANG App")
+    r=random.randrange(2, 20)
+    rr=str(r)
+    code= rr+'qr'+".png"
+    savecode='static/codes/'+code
+    qrcode.make(uri).save(savecode)
+    return uri

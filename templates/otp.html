@@ -4,27 +4,21 @@
 {% block body %}
 
 
-<form action="/otp" method="POST">
-    </br></br>
-    <h2 style= "color:rgb(167, 22, 102)"> Scan the QR code using your authenticator app </h2> <br><br>
-    <input type="hidden" name="csrf_token" value ={{csrf_token()}}/>
-    <img src="{{savecode}}"width=200>
+<form action="/welcome" method="POST">
 
-    <label for="usern"><b>secret code name</b></label>
-    <input name="username" required></br><br>
+    <input type="hidden" name="csrf_token" value ="{{csrf_token()}}"/>
+    <h4 style="color:rgb(167, 22, 102)">Start by entering your username</h4>
+    
+    <input name="usname" required></br>
 
-    <label for="psw"><b>unique phrase</b></label>
-    <input type="password" name ="uniqekey" required><br><br>
-
-    <h4 style="color:rgb(167, 22, 102)">Verify the code from the app</h4>
-   
-    <input name ="otp_code" required></br>
-
-    <br><br>
-    <input type="submit" value="Validate"> 
-
+    <h4 style="color:rgb(167, 22, 102)">Verification Code</h4>
+    
+    <input name ="votp" required ></br>
+    <br>
+    <input type="submit" value="Login">
 </form>
 
-<strong style="color:rgb(212, 17, 17)">{{msg}}</strong>
+<a href="{{ url_for('form_login') }}"> First time Verification</a>
+<a href="{{ url_for('welcome') }}"> First time Verification</a>
 
 {% endblock %}   
