@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html>
+    <head>
+    </head>
+    <body>
+        
+        <table class="table">
+            <thead>
+                <th>Number of Device</th>
+                <th>IP_address</th>
+                <th>Mac_Address</th>
+                <th>Manufacturer</th>
+                <th>Remove from Audit</th>
+                
+            </thead>
+                    
+            <!---Running through the list of devices saved and printing in column-->
+                    
+            {%for row in rows%}
+            <tr>
+                <td> {{ row["rowid"] }} </td>
+                <td> {{ row["ip"] }} </td>
+                <td> {{ row["macaddress"] }} </td>
+                <td> {{ row["manufacturer"] }} </td>
+                <td> <form  onsubmit="return confirm('Are you sure you want to DELETE this device from the Database?');" action="{{url_for('delete')}}" method="POST"><input type="hidden" name="id" value="{{ row['rowid'] }}"><input type="hidden" name="csrf_token" value ="{{csrf_token()}}"/><input type="submit" value="Delete"></form> </td
+            </tr>    
+            {%endfor%}
+
+        </table>
+        <strong>{{msg}}</strong>
+    </body>
+</html>

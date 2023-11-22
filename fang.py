@@ -94,15 +94,6 @@ def scan():
     for u in user:
         u=u
 
-    # # #create a database
-    # d.execute("""
-    # CREATE TABLE IF NOT EXISTS devices (
-    #         user text,
-    #         ip text,
-    #         macaddress text,
-    #         manufacturer text)
-    # """)
-
     nm = nmap.PortScanner()
     nm.scan(hosts='192.168.1.0/24', arguments='-sn')
 
@@ -121,42 +112,44 @@ def scan():
     dev.close()
   #-------------------------------------------------------------------------------#
 
-    return ("Scan complete")
-    # return redirect(url_for('list'))
+    # return ("Scan complete")
+    return redirect(url_for('list'))
 
-# @app.route("/list")
-# def list():
+@app.route("/list")
+def list():
 
-#     con = sqlite3.connect("devices.db")
-#     con.row_factory = sqlite3.Row
+    con = sqlite3.connect("devices.db")
+    con.row_factory = sqlite3.Row
 
-#     cur = con.cursor()
-#     cur.execute("SELECT rowid, * FROM devices") 
+    cur = con.cursor()
 
-#     rows = cur.fetchall()
-#     con.close()
-#     # Send the results of the SELECT to the list.html page
-#     return render_template("list.html", rows=rows)
+    listd = "SELECT rowid, ip,macaddress, manufacturer FROM devices"
+    cur.execute(listd)
+
+    rows = cur.fetchall()
+    con.close()
+    # Send the results of the SELECT to the list.html page
+    return render_template("list.html", rows=rows)
 
 
-# @app.route('/delete',methods=['POST','GET'])
-# def delete():
-#        if request.method == 'POST':
-#         try:
-#              # Use the hidden input value of id from the form to get the rowid
-#             rowid = request.form['id']
-#             # Connect to the database and DELETE a specific record based on rowid
-#             with sqlite3.connect('devices.db') as con:
-#                     cur = con.cursor()
-#                     cur.execute("DELETE FROM devices WHERE rowid="+rowid)
-#                     con.commit()
-#         except:
-#             con.rollback()
+@app.route('/delete',methods=['POST','GET'])
+def delete():
+       if request.method == 'POST':
+        try:
+             # Use the hidden input value of id from the form to get the rowid
+            rowid = request.form['id']
+            # Connect to the database and DELETE a specific record based on rowid
+            with sqlite3.connect('devices.db') as con:
+                    cur = con.cursor()
+                    cur.execute("DELETE FROM devices WHERE rowid="+rowid)
+                    con.commit()
+        except:
+            con.rollback()
 
-#         finally:
-#             con.close()
+        finally:
+            con.close()
         
-#         return redirect(url_for('list'))
+        return redirect(url_for('list'))
 
 
 @app.route("/welcome")
