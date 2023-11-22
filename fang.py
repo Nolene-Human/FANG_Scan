@@ -151,6 +151,11 @@ def delete():
         
         return redirect(url_for('list'))
 
+@app.route("/exit")
+def exit():
+    user.clear()
+    devices.clear()
+    return render_template("exit.html")
 
 @app.route("/welcome")
 def welcome():
