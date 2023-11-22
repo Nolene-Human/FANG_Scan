@@ -3,7 +3,12 @@
     <head>
     </head>
     <body>
-        
+        <h2 style="color:rgb(167, 22, 102)">Phase 2 : Intelligence Gathering </h2>
+        <h3>Here are all the devices on your network. </h3>
+        <p>You can remove any devices you do not want to be further investigated.</p>
+        <p>Press save to logout and exit phase 2.</p>
+        <p>We will be in touch with the results of phase 3.</p>
+         <br><br>
         <table class="table">
             <thead>
                 <th>Number of Device</th>
@@ -27,6 +32,6 @@
             {%endfor%}
 
         </table>
-        <strong>{{msg}}</strong>
+        <a href="{{ url_for('exit') }}"> Exit </a>
     </body>
 </html>
