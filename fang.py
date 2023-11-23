@@ -143,8 +143,6 @@ def delete():
                     cur = con.cursor()
                     deldev="DELETE FROM devices WHERE rowid = ?"
                     cur.execute(deldev,(rowid))
-               
-                    cur.execute("DELETE FROM devices WHERE rowid="+rowid)
                     con.commit()
         except:
             con.rollback()
