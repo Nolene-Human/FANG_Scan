@@ -85,3 +85,5 @@ This application is built using:
 * Flask, and <br>
 * SQLite3
 
+# How to Run the Project
+python fang.py
