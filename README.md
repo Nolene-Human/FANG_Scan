@@ -48,8 +48,15 @@ Here is where the project got to:
 | Cloudflare    | [Tunnel](https://www.youtube.com/watch?v=hrwoKO7LMzk&t=462s)|
 
 ## Future Improvements: Improve Security
+### [STRIDE](https://learn.microsoft.com/en-us/azure/security/develop/threat-modeling-tool-threats)
+Spoofing<br>
+Tampering <br>
+Repudiation <br>
+Information disclosure (privacy breach or data leak) <br>
+Denial of service <br>
+Elevation of privilege <br>
 
-![Alt text](pictures/image-8.png)
+__________________________________________________________________
 
 # Fang Services
 
@@ -63,5 +70,18 @@ This section outlines the applied ‘test early and test often’ methodology to
 | :---------- | :----------------------------------- |
 |Before Development Begins|<p style='color:RED'>CRITICAL</p>|
 |During Design|<p style='color:RED'>CRITICAL</p>|
-|Before Launch||
-|During Deployment|
+|Before Launch|HIGH|
+|During Deployment|MEDIUM|
+
+MVP:<br>
+
+* Verification (seperate application)<br>
+* Login<br>
+* Network Scanning Tool<br>
+
+This application is built using:
+
+* Python, <br>
+* Flask, and <br>
+* SQLite3
+
